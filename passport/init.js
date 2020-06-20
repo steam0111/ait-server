@@ -1,0 +1,36 @@
+const login = require('./login');
+const signup = require('./signup');
+const Caregiver = require('../models/caregiver');
+const Developer = require('../models/developer');
+
+module.exports = function(passport){
+
+  // Passport needs to be able to serialize and deserialize users to support persistent login sessions
+  passport.serializeUser(function(user, done) {
+    //console.log('serializing user: ');
+    done(null, user._id);
+  });
+
+  passport.deserializeUser(function(id, done) {
+
+    Caregiver.findById(id, function(err, user) {
+
+      // жесткая костылина
+      if (user === null) {
+        Developer.findById(id, function (err, user) {
+          done(err, user);
+        });
+      } else
+      {
+        done(err, user);
+      }
+
+      //console.log('deserializing user:',user);
+      //done(err, user);
+    });
+  });
+
+  // Setting up Passport Strategies for Login and SignUp/Registration
+  login(passport);
+  signup(passport);
+};

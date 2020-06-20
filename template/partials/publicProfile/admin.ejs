@@ -1,0 +1,48 @@
+<% if(publicPage == 'admins') { %>
+<!-- Пока такая костылина, т.к стили кабинета переопределяют стили в профили студента-->
+<link rel='stylesheet' href='/css/personalArea.css' />
+
+<%-partial('../confirm.ejs')%>
+
+<div class="block">
+<p>My coaches</p>
+<table border="0">
+  <tr class="table__headRow">
+    <th>№</th>
+    <th>Email</th>
+    <th></th>
+  </tr>
+  <!--  -->
+  <tr>
+    <% for (var i=0; i< coaches.length; i++) { %>
+    <tbody>
+      <tr class="info">
+        <td>
+          <%=i+1%>
+        </td>
+        <td><a href="/publicProfile/coaches/id<%=coaches[i].id%>">
+            <%=coaches[i].email%></a></td>
+          <td class="delete"><button class="deleteBtn"  value="/deleteCoach/id<%=coaches[i].id%>" onclick="toggleConfirm()">Delete</button></td>
+      </tr>
+    </tbody>
+    <% } %>
+  </tr>
+</table>
+</div>
+
+<div class="block">
+  <p>Create new coach</p>
+  <form action="/addNewCoach" method="POST" class="modal__form" name="addNewCoachForm">
+    <label for="login">Login</label>
+    <input type="email" name="email" value="" required>
+    <label for="login">Password</label>
+    <input type="password" name="password" value="" required>
+    <span class="error"></span>
+    <button type="submit" name="button">Create</button>
+  </form>
+</div>
+<% }  else if(publicPage == 'coaches') { %>
+<%-partial('../../partials/publicProfile/coach')%>
+<% } else if(publicPage == 'students'){ %>
+<%-partial('../../partials/publicProfile/student')%>
+<% } %>

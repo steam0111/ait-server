@@ -1,0 +1,107 @@
+<%-partial('../confirm.ejs')%>
+
+<div class="block">
+  <p>My students</p>
+  <table border="0">
+    <tr class="table__headRow">
+      <th>#</th>
+      <th>Name</th>
+      <th>Gender</th>
+      <th>Age</th>
+      <th></th>
+    </tr>
+    <!--  -->
+    <tr>
+      <% for (var i=0; i< students.length; i++) { %>
+      <tbody>
+        <tr class="info">
+          <td>
+            <%=i+1%>
+          </td>
+          <td>
+            <a href="/publicProfile/students/id<%=students[i].id%>">
+              <%=students[i].name%>
+            </a>
+          </td>
+          <td>
+            <%=students[i].gender%>
+          </td>
+          <td>
+            <%=students[i].age%>
+          </td>
+          <td class="delete">
+            <button
+              class="deleteBtn"
+              value="/delete-pid/id<%=students[i].id%>"
+              onclick="toggleConfirm()"
+            >
+              Delete
+            </button>
+          </td>
+        </tr>
+      </tbody>
+      <% } %>
+    </tr>
+  </table>
+</div>
+
+<div class="block">
+  <p>Create new student</p>
+  <form
+    action="/addNewStudent"
+    method="POST"
+    class="modal__form"
+    name="addNewStudentForm"
+  >
+    <%-partial('../pictograms')%>
+
+    <label for="login">Name</label>
+    <input type="text" name="name" value="" required />
+    <label for="login">Age</label>
+    <input type="number" name="age" min="5" max="100" required />
+    <label for="fgender">Gender</label>
+    <select name="gender" required>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Non-binary</option>
+      <option>Non-applicable</option>
+      <option>I prefer not say</option>
+    </select>
+    <span class="error"></span>
+    <button type="submit" name="button">Create</button>
+  </form>
+</div>
+
+<script>
+  var form = $('form[name="addNewStudentForm"]')
+
+  form.submit(function (e) {
+    e.preventDefault()
+
+    var newStudent = {}
+
+    newStudent.login = document.getElementById('login').innerText
+    newStudent.password = document.getElementById('password').innerText
+    newStudent.name = $("input[name='name']").val()
+    newStudent.age = $("input[name='age']").val()
+    newStudent.gender = $("select[name='gender']").val()
+
+    $.ajax({
+      type: 'POST',
+      url: '/addNewStudent',
+      data: JSON.stringify(newStudent),
+      dataType: 'json',
+      contentType: 'application/json',
+      statusCode: {
+        200: function () {
+          form.trigger('reset') // очистить поля формы
+          $('.error', form).html('')
+          window.location.reload() // после AJAX пагинации убрать, т.к надо отрисовывать еще при добавлении
+        },
+        403: function () {
+          $('.error', form).html('PID already exists with this login')
+        },
+      },
+    })
+  })
+</script>

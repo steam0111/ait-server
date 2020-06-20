@@ -1,0 +1,51 @@
+<link rel="stylesheet" href="/css/confirm.css">
+
+<div class="confirm none">
+  <div class="confirm__container">
+    <p class="confirm__text">Are you sure?</p>
+    <div class="confirm__row">
+      <button type="button" name="button" id="accept">Accept</button>
+      <button type="button" name="button" id="cancel">Cancel</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  var acceptBtn = document.querySelector("#accept");
+  var cancelBtn = document.querySelector("#cancel");
+  var confirmWindow = document.querySelector(".confirm");
+
+  var action = "";
+  var rowInfo;
+
+  function toggleConfirm() {
+    confirmWindow.classList.toggle("none");
+
+    if (event.target.id != "cancel" && event.target.id != accept) {
+      action = event.target.value;
+      rowInfo = event.target.parentElement.parentElement;
+    }
+    else {
+      action = "";
+      container = null;
+    }
+  }
+
+  function onAcceptBtnClick() {
+    $.post(action, function() {
+      if (rowInfo.classList.contains("info"))
+        rowInfo.classList.add("none");
+      else {
+        location.reload(); // TODO перенаправлять с бэка
+        console.log("click");
+      }
+    });
+
+    toggleConfirm();
+  }
+
+  acceptBtn.addEventListener("click", onAcceptBtnClick);
+
+  cancelBtn.addEventListener("click", toggleConfirm);
+
+</script>

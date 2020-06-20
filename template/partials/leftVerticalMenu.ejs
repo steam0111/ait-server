@@ -1,0 +1,68 @@
+<link rel="stylesheet" href="/css/leftVerticalMenu.css">
+
+<section class="nav-bar">
+  <div class="nav-bar__container">
+    <a class="link" href="/system_documents/About the system.pdf" target="blank">About the system</a>
+    <a class="link" href="/system_documents/Website_User_Manual.pdf" target="blank">User manual</a>
+    <a class="link" href="/developers/">Developers</a>
+    <a class="link" href="/modules/1">Modules</a>
+    <div id="seeMore">For developers <span>&#9660;</span></div>
+    <div class="linksContainer hidden">
+      <a class="link" href="/api-docs/" target="_blank">API documents</a>
+      <a class="link" href="/system_documents/Website_Programmer_Manual.pdf" target="blank">Programmer manual</a>
+    </div>
+  </div>
+</section>
+
+<button type="button" name="button" id="toggleMobileMenu">&#9776;</button>
+<section class="nav-bar--mobile none">
+  <div class="nav-bar__container">
+    <a class="link" href="/system_documents/About the system.pdf" target="blank">About the system</a>
+    <a class="link" href="/system_documents/Website_User_Manual.pdf" target="blank">User manual</a>
+    <a class="link" href="/developers/">Developers</a>
+    <a class="link" href="/modules/1">Modules</a>
+    <div id="seeMoreMobile">For developers <span>&#9660;</span></div>
+    <div class="linksContainer none linksContainer--mobile">
+      <a class="link" href="/api-docs/" target="_blank">API documents</a>
+      <a class="link" href="/system_documents/Website_Programmer_Manual.pdf" target="blank">Programmer manual</a>
+    </div>
+  </div>
+</section>
+
+<script defer>
+  let seeMore = document.querySelector("#seeMore");
+  let row = seeMore.querySelector("span");
+  let linksContainer = document.querySelector(".nav-bar .linksContainer");
+
+  function onSeeMoreClick(elem) {
+    row.classList.toggle("rotate");
+    linksContainer.classList.toggle("hidden");
+  }
+
+  seeMore.addEventListener("click", onSeeMoreClick);
+</script>
+
+<script defer>
+  let seeMoreMobile = document.querySelector("#seeMoreMobile");
+  let rowMobile = seeMoreMobile.querySelector("span");
+  let linksContainerMobile = document.querySelector(".linksContainer--mobile");
+
+  function onSeeMoreMobileClick(elem) {
+    rowMobile.classList.toggle("rotate");
+    linksContainerMobile.classList.toggle("none");
+  }
+
+  seeMoreMobile.addEventListener("click", onSeeMoreMobileClick);
+</script>
+
+<script defer>
+  var toggleMobileMenu = document.querySelector("#toggleMobileMenu");
+  var container = document.querySelector(".nav-bar--mobile");
+
+  function onToggleMobileMenu(elem) {
+    container.classList.toggle("none");
+    toggleMobileMenu.classList.toggle("toggleMobileMenu--active");
+  }
+
+  toggleMobileMenu.addEventListener("click", onToggleMobileMenu);
+</script>

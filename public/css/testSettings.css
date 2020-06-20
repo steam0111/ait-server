@@ -1,0 +1,255 @@
+
+.widget-box {
+  background: #fff;
+  /* border: 1px solid #E0E0E0; */
+  float: left;
+  width: 100%;
+  margin: 0 0 15px 15px;
+}
+.widget-header {
+  background: #279BE4;
+  margin-bottom: 10px;
+}
+.widget-header h2 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0;
+  padding: 11px 15px;
+  color: #F9F9F9;
+  display: inline-block;
+}
+
+
+.widget-header-template {
+  background: #fff;
+  text-align: left;
+}
+.widget-header-template h2 {
+  font-size: 15px;
+  font-weight: normal;
+  margin: 0;
+  padding: 11px 15px;
+}
+
+.widget-header-template a {
+  color: black;
+  float: center;
+  padding: 12px 26px;
+  border-radius: 5px;
+}
+
+.widget-header-template a.active {
+  background-color: #279BE4;
+  color: white;
+  border-radius: 5px;
+}
+
+.sample-widget-left {max-width: 18%;}
+.sample-widget-right {max-width:79%;}
+
+/* Виджеты настройки теста НАЧАЛО */
+
+#sidebar-settings {
+  overflow: hidden;
+  width: 210px;
+  height: 100%;
+  float: left;
+  background: #2A2D33;
+}
+#sidebar-nav-settings {
+  width: 106%;
+  height: calc(100% - 95px);
+  padding: 0;
+  background: #FFF;
+  border-right: 1px solid #E0E0E0;
+  overflow-y: scroll;
+}
+#sidebar-nav-settings h2 {
+  color: #60636B;
+  float: left;
+  width: 100%;
+  font-size: .8em;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 600;
+  text-transform: uppercase;
+  padding: 3px 0 2px 20px;
+  border-top: 1px solid #4D4C4C;
+  box-sizing: border-box;
+  margin: 10px 0;
+}
+#sidebar-nav-settings ul {
+
+}
+#sidebar-nav-settings ul li {
+
+}
+#sidebar-nav-settings ul li a {
+  color: #C2C2C2;
+  font-size: .95em;
+  padding: 15px 20px;
+  float: left;
+  width: 100%;
+  font-weight: 600;
+  -webkit-box-sizing: border-box;
+  -moz-box-sizing: border-box;
+  box-sizing: border-box;
+}
+#sidebar-nav-settings ul li:hover a, #sidebar-nav ul li:hover a i, #sidebar-nav li.active a, #sidebar-nav li.active a i {
+  color: #333;
+}
+#sidebar-nav-settings ul li:hover a {
+  background: #fff;
+  color: #333;
+}
+#sidebar-nav-settings ul li.active a {
+  background: #fff;
+  color: #333;
+}
+#sidebar-nav-settings ul li.active a i {
+  background: #fff;
+}
+#sidebar-nav-settings i {
+  padding-right: 8px;
+  font-size: 1.3em;
+  color: #60636B;
+  width: 25px;
+  text-align: center;
+}
+
+.checkbox {
+  margin-bottom: 5px;
+}
+
+.range {
+  margin-top: -25px;
+}
+
+/* Настройки слайдбаров выбора картинок НАЧАЛО*/
+input[type=range] {
+  -webkit-appearance: none;
+  margin: 15px 0;
+  width: 100%;
+}
+input[type=range]:focus {
+  outline: none;
+}
+input[type=range]::-webkit-slider-runnable-track {
+  width: 100%;
+  height: 10px;
+  cursor: pointer;
+  animate: 0.2s;
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  background: #BDBDBD;
+  border-radius: 25px;
+  border: 0px solid #000101;
+}
+input[type=range]::-webkit-slider-thumb {
+  box-shadow: 0px 0px 0px #000000, 0px 0px 0px #0d0d0d;
+  border: 0px solid #000000;
+  height: 15px;
+  width: 39px;
+  border-radius: 7px;
+  background: #607D8B;
+  cursor: pointer;
+  -webkit-appearance: none;
+  margin-top: -3.6px;
+}
+input[type=range]:focus::-webkit-slider-runnable-track {
+  background: #BDBDBD;
+}
+/* Настройки слайдбаров выбора картинок КОНЕЦ*/
+
+
+/* Настройки видимости элементов НАЧАЛО*/
+.btnResult, .styleImageResults, .styleImageFinish, .inputStyleImageResults,
+.inputStyleImageFinish  {
+	opacity: 0.4;
+}
+/* Настройки видимости элементов КОНЕЦ*/
+
+/* Виджеты настройки теста КОНЕЦ */
+
+
+
+/* Шаблон теста НАЧАЛО*/
+/* https://codepen.io/rqrqrqrq/pen/WxxLQG */
+.container {
+  /* outline: 2px solid #555; */
+  height: 550px;
+  width: 100%;
+  display: flex;
+  flex-flow: column wrap;
+  justify-content: flex-end;
+  resize: both;
+  overflow: auto;
+}
+
+.block img{
+  width: 100%;
+  height:  100%;
+}
+
+.block {
+  box-sizing: border-box;
+  /* background: #48f; */
+  background: #fff;
+  margin: 5px;
+  padding: 10px;
+  font-size: 30px;
+  /* color: #fff; */
+}
+
+.nothing1 {
+  width: calc(25% - 10px);
+  height: calc(27% - 10px);
+}
+
+.notConstantly {
+  width: calc(25% - 10px);
+  height: calc(28% - 10px);
+  border: 4px dotted #546E7A; /* Параметры границы */
+}
+
+.constantly {
+  width: calc(25% - 10px);
+  height: calc(35% - 10px);
+  border: 4px solid #546E7A; /* Параметры границы */
+}
+
+.nothing2 {
+  width: calc(25% - 10px);
+  height: calc(10% - 10px);
+}
+
+.nothing3 {
+  width: calc(50% - 10px);
+  height: calc(10% - 10px);
+}
+
+.question {
+  width: calc(50% - 10px);
+  height: calc(10% - 10px);
+  border: 4px dotted #546E7A; /* Параметры границы */
+}
+
+.block3 {
+  width: calc(50% - 10px);
+  height: calc(80% - 10px);
+  border: 4px solid #546E7A; /* Параметры границы */
+}
+
+.stopTest {
+  width: calc(25% - 10px);
+  height: calc(27% - 10px);
+  border: 4px solid #546E7A; /* Параметры границы */
+}
+
+.progress-bar {
+  text-align: center;
+  margin-top: 5px;
+  height: 25px;
+  width: 100%;
+  background-color: #BDBDBD;
+	border: 4px dotted #546E7A; /* Параметры границы */
+}
+/* Шаблон теста КОНЕЦ*/

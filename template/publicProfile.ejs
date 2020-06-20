@@ -1,0 +1,18 @@
+<% layout('layout/pattern') -%>
+
+<div class="page">
+  <%-partial('./partials/leftVerticalMenu')%>
+  <div class="right-column">
+    <div class="container">
+      <% if(user.access_level == 3) { %>
+      <%-partial('./partials/publicProfile/student')%>
+      <% }  else if(user.access_level == 2) { %>
+      <%-partial('./partials/publicProfile/coach')%>
+      <% }  else if(user.access_level == 1) { %>
+      <%-partial('./partials/publicProfile/admin')%>
+      <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="/js/confirmDelete.js"></script>

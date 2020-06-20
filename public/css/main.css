@@ -1,0 +1,209 @@
+/*
+размеры
+отступы
+позиционирование
+стилизация
+ */
+
+ body {
+   width: 100vw;
+   height: 100vh;
+   min-width: 360px;
+   margin: 0;
+   padding: 0;
+   font-family: Roboto, sans-serif;
+   color: rgb(83, 83, 83);
+   background-image: url("/system_images/background.jpeg");
+   background-size: 100% 100%;
+   background-repeat: no-repeat;
+   overflow-x: hidden;
+   overflow-y: hidden;
+ }
+
+ @media screen and (max-width: 500px) {
+   body {
+     background-size: 100 100%;
+   }
+ }
+
+ input:focus, button:focus {
+   outline: none;
+ }
+
+.modal {
+  width: 90%;
+  max-width: 400px;
+  min-height: 345px;
+  box-sizing: border-box;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 60px;
+  display: flex;
+  flex-direction: column;
+  background-color: rgba(255, 255, 255, 1);
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, .25);
+}
+
+.modal .modal__pagination {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+}
+
+.paginationBtn {
+  width: 50%;
+  padding: 20px 10px 20px 10px;
+  background-color: rgb(240, 240, 240);
+  color: inherit;
+  border: none;
+  transition: all;
+  transition-duration: .5s;
+  cursor: pointer;
+}
+
+.paginationBtn--active {
+  background-color: rgb(42, 95, 129);
+  color: white;
+  border: none;
+  transition: all;
+  transition-duration: .5s;
+}
+
+.modal .modal__form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+.modal__form input {
+   width: 100%;
+   box-sizing: border-box;
+   max-width: 300px;
+   padding: 5px;
+   margin-bottom: 20px;
+   background-color: rgb(240, 240, 240);
+   border: none;
+   transition: all;
+   transition-duration: .3s;
+ }
+
+.modal__form input:focus {
+  box-shadow: inset 4px 4px 0px 0px rgba(0, 0, 0, .25);
+  outline: none;
+  transition: all;
+  transition-duration: .3s;
+}
+
+.modal__form select {
+  width: 100%;
+  box-sizing: border-box;
+  max-width: 300px;
+  padding: 5px;
+  margin-bottom: 20px;
+  background-color: rgb(240, 240, 240);
+  border: none;
+  transition: all;
+  transition-duration: .3s;
+}
+
+.modal__form label {
+  width: 100%;
+  max-width: 300px;
+  margin-bottom: 5px;
+  text-align: left;
+}
+
+.modal__form #forgotLink {
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  font-size: 10pt;
+  text-decoration: underline;
+  color: rgb(42, 95, 129);
+  cursor: pointer;
+}
+
+.modal__form button {
+  width: 100%;
+  max-width: 300px;
+  padding: 5px;
+  margin-top: 20px;
+  margin-bottom: 20px;
+  border: none;
+  background-color: rgb(42, 95, 129);
+  color: white;
+  box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, .25);
+  transition: all;
+  transition-duration: .5s;
+  cursor: pointer;
+}
+
+.modal__form button:hover {
+  background-color: rgb(240, 240, 240);
+  color: rgb(42, 95, 129);
+  box-shadow: none;
+  transition: all;
+  transition-duration: .5s;
+}
+
+#restore {
+  padding-top: 30px;
+  margin-bottom: 0;
+  background-color: rgb(240, 240, 240);
+}
+
+#restore input {
+  background-color: white;
+}
+
+#restore button:hover {
+  background-color: white;
+}
+
+#reset_password {
+  padding-top: 40px;
+  min-height: auto;
+}
+
+/*  */
+.none {
+  display: none!important;
+  transition: all;
+  transition-duration: .5s;
+  animation-name: fadeIn;
+  animation-duration: 1s;
+}
+
+@keyframes fadeIn {
+  0% {
+    opacity: 0;
+    display: none;
+  }
+  100% {
+    opacity: 1;
+    display: block;
+  }
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+    display: block;
+  }
+  100% {
+    opacity: 0;
+    display: none;
+  }
+}
+
+.success, .error {
+  box-sizing: border-box;
+  width: 100%;
+  max-width: 300px;
+  text-align: center;
+  padding: 5px;
+}

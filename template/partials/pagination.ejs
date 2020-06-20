@@ -1,0 +1,67 @@
+<style>
+  #pagination {
+    width: 50%;
+    margin-left: auto;
+    margin-right: auto;
+    margin-bottom: 20px;
+    padding: 0;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-around;
+    list-style-type: none;
+  }
+
+  #pagination li {
+    text-decoration: none;
+    padding: 5px 10px 5px 10px;
+    border: none;
+    background-color: rgb(240, 240, 240);
+    color: rgb(42, 95, 129);
+    transition: all;
+    transition-duration: .5s;
+    cursor: pointer;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: none;
+  }
+
+  #pagination li:hover, .active {
+    background-color: rgb(42, 95, 129)!important;
+    box-shadow: 4px 4px 0px 0px rgba(0, 0, 0, .25);
+    color: white!important;
+    transition: all;
+    transition-duration: .5s;
+  }
+
+</style>
+
+<% if (pages > 1) { %>
+    <ul id="pagination">
+        <% if (current == 1) { %>
+            <li class="disabled"><a>First</a></li>
+        <% } else { %>
+            <li><a href="/personalArea/1">First</a></li>
+        <% } %>
+        <% var i = (Number(current) > 5 ? Number(current) - 4 : 1) %>
+        <% if (i !== 1) { %>
+            <li class="disabled"><a>...</a></li>
+        <% } %>
+        <% for (; i <= (Number(current) + 4) && i <= pages; i++) { %>
+            <% if (i == current) { %>
+                <li class="active"><a><%= i %></a></li>
+            <% } else { %>
+                <li><a href="/personalArea/<%= i %>"><%= i %></a></li>
+            <% } %>
+            <% if (i == Number(current) + 4 && i < pages) { %>
+                <li class="disabled"><a>...</a></li>
+            <% } %>
+        <% } %>
+        <% if (current == pages) { %>
+            <li class="disabled"><a>Last</a></li>
+        <% } else { %>
+            <li><a href="/personalArea/<%= pages %>">Last</a></li>
+        <% } %>
+    </ul>
+<% } %>

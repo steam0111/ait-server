@@ -1,0 +1,366 @@
+<script>
+  window.onload = function() {
+    var preloader = document.getElementById("preloader");
+    preloader.classList.add("none");
+    paginationLogic();
+  }
+
+  function showPreloader() {
+    var preloader = document.getElementById("preloader");
+    hideAllGames();
+    preloader.classList.remove("none");
+
+    setTimeout(function() {
+      preloader.classList.add("none");
+      paginationLogic();
+    }, navigator.connection.downlink * 30);
+  }
+</script>
+
+<script defer>
+  //path of page declaration
+  var path = "collectionMoney";
+  //settings from data base
+  var settings = '<%-settings%>';
+  settings = JSON.parse(settings); //parse to get object
+  var currency = '<%-currency%>';
+  var allCurrencies = '<%-allCurrencies%>';
+  allCurrencies = JSON.parse(allCurrencies);
+
+  // game elements declaration
+  var progressBars = document.getElementsByClassName("progressBar");
+  var againBtns = document.getElementsByClassName("againBtn");
+  var wallets = document.getElementsByClassName("wallet");
+  var baskets = document.getElementsByClassName("basket");
+  var nextBtns = document.getElementsByClassName("nextBtn");
+  var backBtns = document.getElementsByClassName("backBtn");
+
+  // game views declaration
+  var games = document.getElementsByClassName("game");
+  var [collectionMoney, selectionGoods, paymentPurchase, takeChangee] = [...games];
+
+  for (let game of games)
+    game.addEventListener("load", showPreloader);
+
+  // pagination buttons declaration;
+  var collectionMoneyBtn = document.getElementById("collectionMoneyBtn");
+  var selectionGoodsBtn = document.getElementById("selectionGoodsBtn");
+  var paymentPurchaseBtn = document.getElementById("paymentPurchaseBtn");
+  var takeChangeeBtn = document.getElementById("takeChangeeBtn");
+
+  var paginationBtns = [
+    collectionMoneyBtn,
+    selectionGoodsBtn,
+    paymentPurchaseBtn,
+    takeChangeeBtn
+  ];
+
+  var hostName = '<%-host%>';
+
+  // changers declaration
+  var nextBackBtnsChanger = document.getElementById("nextBackBtnsChanger");
+  var progressBarChanger = document.getElementById("progressBarChanger");
+  var againBtnChanger = document.getElementById("againBtnChanger");
+  var walletChanger = document.getElementById("walletChanger");
+  var basketChanger = document.getElementById("basketChanger");
+  var submitBtn = document.getElementById("submitBtn");
+  var fCurrency = document.getElementById("fсurrency");
+
+  var currencyImages = document.getElementsByClassName("currencyImage");
+
+  // listeners of pagination buttons
+  collectionMoneyBtn.addEventListener("click", pageChanger);
+  selectionGoodsBtn.addEventListener("click", pageChanger);
+  paymentPurchaseBtn.addEventListener("click", pageChanger);
+  takeChangeeBtn.addEventListener("click", pageChanger);
+
+  // listeners of changers
+  nextBackBtnsChanger.addEventListener("change", changePairElems);
+  progressBarChanger.addEventListener("change", changeElem);
+  againBtnChanger.addEventListener("change", changeElem);
+  walletChanger.addEventListener("change", changeElem);
+  basketChanger.addEventListener("change", changeElem);
+  fCurrency.oninput = function() {
+    for (let game of games)
+      changeCurrency(game);
+  };
+
+  // set values of changers from DB
+  nextBackBtnsChanger.value = getValue(settings.nextBtn);
+  progressBarChanger.checked = settings.progressBar;
+
+  settings.progressBar == "true" ?
+    progressBarChanger.checked = true : progressBarChanger.checked = false;
+
+  againBtnChanger.value = getValue(settings.againBtn);
+  walletChanger.value = getValue(settings.wallet);
+  basketChanger.value = getValue(settings.basket);
+
+  fCurrency.selectedIndex = settings.fCurrency;
+
+
+  showFromDB(fCurrency);
+  showFromDB(nextBackBtnsChanger);
+  showFromDB(progressBarChanger);
+  showFromDB(againBtnChanger);
+  showFromDB(walletChanger);
+  showFromDB(basketChanger);
+  //end of main part
+
+  // function declaration part
+  function pageChanger(elem) {
+    paginationBtns.map(item => {
+      item.classList.remove("a-active");
+    });
+
+    elem.target.classList.add("a-active");
+    switch (elem.target.id) {
+      case "collectionMoneyBtn":
+        path = "collectionMoney";
+        paginationLogic();
+        break;
+
+      case "selectionGoodsBtn":
+        path = "selectionGoods";
+        paginationLogic();
+        break;
+
+      case "paymentPurchaseBtn":
+        path = "paymentPurchase";
+        paginationLogic();
+        break;
+
+      case "takeChangeeBtn":
+        path = "takeChangee";
+        paginationLogic();
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  function paginationLogic() {
+    hideAllGames();
+
+    [againBtnChanger, basketChanger, walletChanger].map(item => {
+      setDisableChanger(false, item);
+    });
+
+    switch (path) {
+      case "collectionMoney":
+        collectionMoney.classList.remove("none");
+
+        setDisableChanger(true, againBtnChanger);
+        setDisableChanger(true, basketChanger);
+        break;
+
+      case "selectionGoods":
+        selectionGoods.classList.remove("none");
+
+        setDisableChanger(true, againBtnChanger);
+        setDisableChanger(true, walletChanger);
+        break;
+
+      case "paymentPurchase":
+        paymentPurchase.classList.remove("none");
+        setDisableChanger(true, againBtnChanger);
+        setDisableChanger(true, basketChanger);
+        break;
+
+      case "takeChangee":
+        takeChangee.classList.remove("none");
+        setDisableChanger(true, basketChanger);
+        break;
+
+      default:
+        break;
+    }
+  }
+
+  function changeCurrency(game) {
+    var currencyImages = game.getElementsByClassName("currencyImage");
+    var banknotes = allCurrencies[fCurrency.value]["banknotes"];
+    var coins = allCurrencies[fCurrency.value]["coins"];
+
+
+    for (let currencyImage of currencyImages) {
+      currencyImage.parentElement.classList.add("hidden");
+      currencyImage.src = "";
+    }
+
+
+    switch (game) {
+      case games[0]:
+        for (var i = 0; i < (coins.length + banknotes.length);) {
+          coins.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+          //////////////
+          banknotes.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+        }
+        break;
+
+      case games[1]:
+        for (var i = 0; i < coins.length;) {
+          coins.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+        }
+        break;
+        //
+      case games[2]:
+        for (var i = 0; i < coins.length;) {
+          coins.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+        }
+        break;
+        //
+      case games[3]:
+        for (var i = 0; i < (coins.length + banknotes.length);) {
+          coins.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+          //////////////
+          banknotes.map(item => {
+            currencyImages[i].src = item;
+            currencyImages[i].parentElement.classList.remove("hidden");
+            i++;
+          });
+        }
+        break;
+    }
+
+    showPreloader();
+  }
+
+  function hideAllGames() {
+    for (let game of games)
+      game.classList.add("none");
+  }
+
+  function setDisableChanger(bool, elem) {
+    if (bool) {
+      elem.classList.add("disabled");
+      elem.setAttribute("disabled", "disabled");
+
+      var label = elem.parentElement;
+      label.classList.add("disabled");
+    } else {
+      elem.classList.remove("disabled");
+      elem.removeAttribute("disabled");
+
+      var label = elem.parentElement;
+      label.classList.remove("disabled");
+    }
+  }
+
+  // change alone element
+  function changeElem(changer) {
+    if (this.getAttribute('type') == 'checkbox') {
+      for (let progressBar of progressBars)
+        progressBar.classList.toggle("none");
+    } else {
+      var searchClass = this.id.toString().replace('Changer', '');
+      var elems = document.getElementsByClassName(searchClass);
+
+      for (let elem of elems) {
+        var imagePath = elem.src;
+        imagePath = imagePath.replace(/\w.png/, `${this.value}.png`);
+        elem.src = imagePath;
+      }
+    }
+  }
+
+  // change pair elements
+  function changePairElems() {
+    var imagePathNextBtn = nextBtns[0].src;
+    imagePathNextBtn = imagePathNextBtn.replace(/\w.png/, `${nextBackBtnsChanger.value}.png`);
+
+    for (let nextBtn of nextBtns)
+      nextBtn.src = imagePathNextBtn;
+    //////////////////////////////////
+    var imagePathBackBtn = backBtns[1].src;
+    imagePathBackBtn = imagePathBackBtn.replace(/\w.png/, `${nextBackBtnsChanger.value}.png`);
+
+    for (let backBtn of backBtns)
+      backBtn.src = imagePathBackBtn;
+  }
+
+  function showFromDB(changer) {
+    switch (changer) {
+      case fCurrency:
+        changer.value = currency;
+        for (let game of games)
+          changeCurrency(game);
+        break;
+        //////////////////////////////////
+      case progressBarChanger:
+        for (let progressBar of progressBars)
+          if (changer.checked)
+            progressBar.classList.remove("none");
+          else progressBar.classList.add("none");
+        break;
+        //////////////////////////////////
+      case nextBackBtnsChanger:
+        changePairElems();
+        break;
+        //////////////////////////////////
+      default:
+        var searchClass = changer.id.toString().replace('Changer', '');
+        var elems = document.getElementsByClassName(searchClass);
+        var imagePath = elems[0].src;
+        imagePath = imagePath.replace(/\w.png/, `${changer.value}.png`);
+
+        for (let elem of elems)
+          elem.src = imagePath;
+    }
+  }
+
+  function getValue(areaFromDb) {
+    var value = areaFromDb.toString();
+    value = value.match(/\d.png/)[0];
+    value = value.replace('.png', '');
+
+    return parseInt(value);
+  }
+
+  submitBtn.onclick = function() {
+    var newSettings = {};
+    // back
+    newSettings.backBtn = backBtns[0].src.replace(/http(s?):\/\//, '').replace(`${hostName}`, '');
+    // progress bar
+    newSettings.progressBar = progressBarChanger.checked;
+    // next
+    newSettings.nextBtn = nextBtns[0].src.replace(/http(s?):\/\//, '').replace(`${hostName}`, '');
+    // again
+    newSettings.againBtn = againBtns[0].src.replace(/http(s?):\/\//, '').replace(`${hostName}`, '');
+    // wallet
+    newSettings.wallet = wallets[0].src.replace(/http(s?):\/\//, '').replace(`${hostName}`, '');
+    // basket
+    newSettings.basket = baskets[0].src.replace(/http(s?):\/\//, '').replace(`${hostName}`, '');
+    // currency
+    newSettings.currency = fCurrency.value;
+
+    $.ajax({
+      type: 'POST',
+      url: window.location.pathname,
+      dataType: 'json',
+      data: newSettings,
+      success: alert('Data successfully updated')
+    });
+  }
+</script>

@@ -1,0 +1,15 @@
+#preloader {
+  width: 400px;
+  height: 400px;
+  background-image: url("/system_images/preloader.png");
+  background-size: 100%, 100%;
+  animation-name: preloader;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
+@keyframes preloader {
+  0%: {transform: rotate(0deg);}
+  100% {transform: rotate(360deg);}
+}

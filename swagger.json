@@ -1,0 +1,10 @@
+{
+    "info": {
+        "title": "API",
+        "version": "1.0.0",
+        "description": "API for a web system for people with intellectual disabilities"
+    },
+    "host": "",
+    "basePath": ""
+}
+ 

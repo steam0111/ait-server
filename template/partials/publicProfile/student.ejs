@@ -1,0 +1,142 @@
+<link rel='stylesheet' href='/css/profileStudent.css' />
+
+<%-partial('../confirm.ejs')%>
+
+<div class="block">
+  <p>Information</p>
+  <form class="modal__form" name="addNewStudentForm">
+    <div class="photo-line">
+      <div class="photo">
+      </div>
+      <input type="file" name="" value="" id="load-photo" disabled>
+    </div>
+
+    <%-partial('../pictograms')%>
+
+    <label for="name">Name</label>
+    <input type="text" name="name" value="<%=student.name%>" required>
+    <label for="age">Age</label>
+    <input type="number" name="age" min="5" max="100" value="<%=student.age%>" required>
+    <label for="fgender">Gender</label>
+    <select name="gender" value="<%=student.gender%>" required>
+      <option>Male</option>
+      <option>Female</option>
+      <option>Non-binary</option>
+      <option>Non-applicable</option>
+      <option>I prefer not say</option>
+    </select>
+    <div class="row">
+      <button type="button" name="button" id="updateBtn">Update</button>
+      </form>
+        <button type="button" id="deleteBtn" onclick="toggleConfirm()" value="/delete-pid/id<%=student.id%>">
+          Delete
+        </button>
+    </div>
+</div>
+
+<!--  -->
+
+
+
+<div class="block apps">
+  <p>Applications</p>
+  <button type="button" name="button" class="apps_buttonList">MoneyGame</button>
+  <div id="MoneyGame" class="apps_links none">
+    <a href="/configure/money-game/id<%=student.id%>">Configure the interface</a>
+  </div>
+  <button type="button" name="button" class="apps_buttonList">MoneyGameSECOND</button>
+  <div id="MoneyGameSECOND" class="apps_links none">
+    <a href="/configure/money-game-second/id<%=student.id%>">Configure the interface</a>
+  </div>
+  <!--  -->
+  <button type="button" name="button" class="apps_buttonList">AIT</button>
+  <div id="AIT" class="apps_links none">
+    <a href="/test_settings/id<%=student.id%>">Configure the interface</a>
+  </div>
+  <!--  -->
+  <button type="button" name="button" class="apps_buttonList">Third</button>
+  <div id="Third" class="apps_links none">
+    <a href="#">First button</a>
+    <a href="#">Second button</a>
+    <a href="#">Third button</a>
+  </div>
+
+  <div class="configuration-block"><p>Configuration Panels</p>
+  <div> 
+    <a href="/configuration_module/panels/<%=student.id%>">Open</a>
+  </div></div>
+  
+</div>
+
+
+
+<script>
+  var appsButtons = document.querySelectorAll(".apps_buttonList");
+  var apps_links = document.querySelectorAll(".apps_links");
+
+  function onListButtonClick(elem) {
+    for (let link of apps_links)
+      link.classList.add("none");
+
+    document.getElementById(`${elem.target.innerText}`).classList.remove("none");
+  }
+
+  for (let button of appsButtons)
+    button.addEventListener("click", onListButtonClick);
+
+  var updateBtn = document.getElementById("updateBtn");
+  updateBtn.onclick = function() {
+
+    var updateStudentData = {};
+
+    if ("<%=student.login%>".replace(/\s+/g, "") != document.querySelector("#login").innerText)
+      updateStudentData.login = document.getElementById("login").innerText;
+
+    updateStudentData.password = document.getElementById("password").innerText;
+    updateStudentData.name = document.querySelector("input[name='name']").value;
+    updateStudentData.age = document.querySelector("input[name='age']").value;
+    updateStudentData.gender = document.querySelector("select[name='gender']").value;
+    //updateStudentData.photo = $("input[name='photo']").val();
+    // var fd = new FormData;
+    // updateStudentData.photo = fd.append('img', $("input[name='photo']").prop('files')[0]);
+    // console.log(fd.append('img', $("input[name='photo']").prop('files')[0]));
+
+    $.ajax({
+      type: 'POST',
+      url: '/updateStudent/id<%=student.id%>',
+      dataType: 'json',
+      data: updateStudentData,
+      success: data => alert(data.responseText),
+      error: data => alert(data.responseText)
+    });
+  }
+</script>
+
+<script type="text/javascript" defer>
+    var pictograms = <%-pictograms%>;
+    var currentPidLoginAndPassword = <%-currentPidLoginAndPassword%>;
+
+      if (!currentPidLoginAndPassword.LOGIN.length)
+      document.getElementById("login").innerText = "";
+
+      if (!currentPidLoginAndPassword.PASSWORD.length)
+      document.getElementById("password").innerText = "";
+
+      var pictograms = document.querySelectorAll(".pictograms");
+
+      var loginInputs = pictograms[0].querySelectorAll(".pictograms__input__field");
+      var passwordInputs = pictograms[1].querySelectorAll(".pictograms__input__field");
+
+      currentPidLoginAndPassword.LOGIN.map((item, index) => {
+        if (loginInputs[index] == undefined) return;
+        loginInputs[index].src = item;
+      });
+
+      currentPidLoginAndPassword.PASSWORD.map((item, index) => {
+        if (passwordInputs[index] == undefined) return;
+        passwordInputs[index].src = item;
+      });
+
+      document.querySelector("#login").innerText = "<%=student.login%>".replace(/\s+/g, "");
+      document.querySelector("#password").innerText = "<%=student.password%>".replace(/\s+/g, "");
+</script>

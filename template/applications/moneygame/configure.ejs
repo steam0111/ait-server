@@ -1,0 +1,203 @@
+<% layout('../../layout/pattern') -%>
+
+<link rel='stylesheet' href='/css/applications/moneygame/main.css' />
+<link rel='stylesheet' href='/css/personalArea.css' />
+
+<div class="page">
+  <%-partial('../../partials/leftVerticalMenu')%>
+  <div class="right-column">
+    <div class="container">
+      <section id="content" class="">
+          <div class="content">
+              <div class="content-header">
+                  <h1>Configure MoneyGame</h1>
+              </div>
+              <div class="container">
+                <h2>Pages of application:</h2>
+                  <div class="pagination">
+                      <button class="a-active paginationBtn" id="collectionMoneyBtn">Collection Money</button>
+                      <button class="paginationBtn" id="selectionGoodsBtn">Selection Goods</button>
+                      <button class="paginationBtn" id="paymentPurchaseBtn">Payment Purchase</button>
+                      <button class="paginationBtn" id="takeChangeeBtn">Take Changee</button>
+                  </div>
+                  <%-partial('./partials/settings')%>
+                  <%-partial('../../partials/preloader')%>
+
+                      <div class="game none" id="collectionMoney">
+                          <div class="game-header">
+                            <div class="nav-btn backBtn" title="Back Button" src="/applications/money_game/backBtn/1.png"></div>
+                            <img class="nav-btn nextBtn" title="Next Button" src="/applications/money_game/nextBtn/1.png">
+                            <img class="nav-btn againBtn none" src="/applications/money_game/againBtn/1.png">
+                            <div class="smileFace"></div>
+                          </div>
+                          <div class="main">
+                              <div class="row">
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                              </div>
+                              <div class="row">
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                              </div>
+                              <div class="row">
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                              </div>
+                              <div class="row">
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                              </div>
+                              <div class="row">
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                                  <div class="game-block"><img class="currencyImage" src=""></div>
+                              </div>
+                          </div>
+                          <div class="game-footer">
+                              <div class="progressBar" title="Progress Bar"><div></div></div>
+                              <img class="wallet" title="Wallet" src="/applications/money_game/wallet/1.png">
+                              <img class="basket none" src="/applications/money_game/basket/1.png">
+                          </div>
+                      </div>
+
+                      <!-- --------------------------------- -->
+
+                      <div class="game none" id="selectionGoods">
+                          <div class="game-header">
+                              <img class="nav-btn backBtn" title="Back Button" src="/applications/money_game/backBtn/1.png">
+                              <img class="nav-btn nextBtn" title="Next Button" src="/applications/money_game/nextBtn/1.png">
+                              <img class="nav-btn againBtn none" src="/applications/money_game/againBtn/1.png">
+                              <div class="smileFace"></div>
+                          </div>
+                          <div class="main">
+                            <div class="main">
+                                <div class="row">
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                </div>
+                                <div class="row">
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                </div>
+                                <div class="row">
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                </div>
+                                <div class="row">
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                </div>
+                                <div class="row">
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                    <div class="game-block"><img class="currencyImage" src=""></div>
+                                </div>
+                            </div>
+                          </div>
+                          <div class="game-footer">
+                              <div class="progressBar" title="Progress Bar"><div></div></div>
+                              <img class="basket" title="Basket" src="/applications/money_game/basket/1.png"></div>
+                              <img class="wallet none" src="/applications/money_game/wallet/1.png">
+                          </div>
+
+                          <!-- --------------------------------- -->
+
+                          <div class="game none" id="paymentPurchase">
+                              <div class="game-header">
+                                  <img class="nav-btn backBtn" title="Back Button" src="/applications/money_game/backBtn/1.png">
+                                  <img class="nav-btn nextBtn" title="Next Button" src="/applications/money_game/nextBtn/1.png">
+                                  <img class="nav-btn againBtn none" src="/applications/money_game/againBtn/1.png">
+                                  <div class="smileFace"></div>
+                              </div>
+                              <div class="main">
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                              </div>
+                              <div class="game-footer">
+                                  <div class="progressBar" title="Progress Bar"><div></div></div>
+                                  <img class="wallet" title="Wallet" src="/applications/money_game/wallet/1.png">
+                                  <img class="basket none" src="/applications/money_game/basket/1.png">
+                              </div>
+                          </div>
+
+                          <!-- --------------------------------- -->
+
+                          <div class="game none" id="takeChangee">
+                              <div class="game-header">
+                                  <img class="nav-btn backBtn" title="Back Button" src="/applications/money_game/backBtn/1.png">
+                                  <img class="nav-btn nextBtn none" title="Next Button">
+                                  <img class="nav-btn againBtn" title="Again Button">
+                                  <div class="smileFace"></div>
+                              </div>
+                              <div class="main">
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                                  <div class="row">
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                      <div class="game-block"><img class="currencyImage" src=""></div>
+                                  </div>
+                              </div>
+                              <div class="game-footer">
+                                  <div class="progressBar" title="Progress Bar"><div></div></div>
+                                  <img class="wallet" title="Wallet" src="/applications/money_game/wallet/1.png">
+                                  <img class="basket none" src="/applications/money_game/basket/1.png"></div>
+                              </div>
+
+                      </div>
+              </div>
+      </section>
+    </div>
+  </div>
+</div>
+
+<%-partial('./partials/settingsLogic')%>

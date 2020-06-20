@@ -1,0 +1,86 @@
+<link rel='stylesheet' href='/css/testSettings.css' />
+
+<% layout('layout/pattern') -%>
+
+<%-partial('./partials/leftVerticalMenu')%>
+
+<section id="content">
+  <div class="content">
+    <div class="content-header">
+      <h1>Test settings for:</h1>
+      <p><%=name%></p>
+    </div>
+
+    <div class="widget-box sample-widget-left">
+      <div class="widget-header">
+        <h2>Settings</h2>
+      </div>
+      <div class="widget-content">
+
+        <section id="sidebar-settings">
+          <div id="sidebar-nav-settings">
+            <ul>
+              <li class="checkbox"><label><input type="checkbox" class="checkbox_range" name="checkText" value="1" id="checkText"> Text</label></li>
+              <li class="checkbox"><label><input type="checkbox" class="checkbox_range" name="checkSound" value="0" id="checkSound"> Sound</label></li>
+              <li class="checkbox"><label><input type="checkbox" class="checkbox_range" name="checkSwap" value="1" id="checkSwap"> Swap</label></li>
+              <li class="checkbox checkSwapFinger"><label id="checkSwapFingerText"><input type="checkbox" class="checkbox_range" name="checkSwapFinger" value="1" id="checkSwapFinger"> Finger</label></li>
+              <li class="checkbox checkSwapArrows"><label id="checkSwapArrowsText"><input type="checkbox" class="checkbox_range" name="checkSwapArrows" value="1" id="checkSwapArrows"> Arrows</label></li>
+              <li class="checkbox"><label><input type="checkbox" class="checkbox_range" name="checkProgressBar" value="1" id="checkProgressBar"> Progress bar</label></li>
+              <li class="checkbox"><label class="btnResult"><input type="checkbox" class="checkbox_range" name="checkBtnResult" value="1"  id="checkBtnResult" disabled> Btn Results</label></li>
+
+              <li class="styleImagesSwap"><h5><b>Style Images: Swap arrows</b></h5></li>
+              <li class="range"><input type="range" class="checkbox_range" name="styleImagesSwap" value="1" min="0" max="1" id="styleImagesSwap"></li>
+              <li><h5><b>Style Images: Like/Dislike</b></h5></li>
+              <li class="range"><input type="range" class="checkbox_range" name="styleImagesLikeDislike" value="0" min="0" max="1" id="styleImagesLikeDislike"></li>
+              <li><h5><b>Style Image: STOP TEST</b></h5></li>
+              <li class="range"><input type="range" class="checkbox_range" name="styleImageStopTest" value="1" min="0" max="1" id="styleImageStopTest"></li>
+              <li class="styleImageResults"><h5><b>Style Image: Results</b></h5></li>
+              <li class="range"><input type="range" class="styleImageResults checkbox_range" value="1" min="0" max="1" id="styleImageResult" disabled></li>
+              <li class="styleImageFinish"><h5><b>Style Image: Finish</b></h5></li>
+              <li class="range"><input type="range" class="styleImageFinish checkbox_range" value="1" min="0" max="1" id="styleImageFinish" disabled></li>
+            </ul>
+          </div>
+        </section>
+
+      </div>
+    </div>
+
+    <div class="widget-box sample-widget-right">
+      <div class="widget-header-template">
+        <h2 class="pagination">
+          <a class="active">Test</a>
+          <a href="#">User training</a>
+          <a href="#">Pre-result</a>
+          <a href="#">Result</a>
+          <a href="#">Finish</a>
+        </h2>
+      </div>
+      <div class="widget-content">
+
+        <div class="container">
+          <div class="block nothing1"></div>
+          <div class="block notConstantly"><img src="/system_images/testImage.png" id="imageBack"></div>
+          <div class="block constantly"><img src="/system_images/testImage.png" id="imageLike"></div>
+          <div class="block nothing2"></div>
+
+          <div class="block nothing3"></div>
+          <div class="block question" id="textQuestion" style="text-align:center">Text question</div>
+          <div class="block block3"><img src="/system_images/testImage.png"></div>
+
+          <div class="block stopTest"><img src="/system_images/testImage.png" id="imageStopTest"></div>
+          <div class="block notConstantly"><img src="/system_images/testImage.png" id="imageNext"></div>
+          <div class="block constantly"><img src="/system_images/testImage.png" id="imageDislike"></div>
+          <div class="block nothing2"></div>
+
+        </div>
+
+        <div class="progress-bar" role="progressbar" id="progressBar"aria-valuenow="40" aria-valuemin="0" aria-valuemax="100">40%</div>
+
+      </div>
+    </div>
+
+  </div>
+
+</section>
+
+<script src="/js/visibleChangeSettings.js"></script>

@@ -1,0 +1,207 @@
+<% layout('../layout/pattern') -%>
+<%- partial('../partials/confirm.ejs') %>
+
+<link rel='stylesheet' href='/css/personalArea.css'/>
+
+<div class="page">
+    <%- partial('../partials/leftVerticalMenu') %>
+    <div class="right-column">
+        <div class="container">
+
+            <div class="block"><p>Search for a module by name</p>
+                <div class="modal__form">
+                    <input type="text" name="text_search_module" size="45" maxlength="100"
+                           placeholder="Search">
+                    <div style="width: 100%">
+                        <button type="button" class="btn_search_module" style="width: 75%; margin-left: 5%">Search
+                        </button>
+                        <button type="button" class="btn_search_module_reset" style="width: 15%; float: right">Reset
+                        </button>
+                    </div>
+
+                </div>
+
+                <p>List of modules
+                    <br>
+                    <svg class="bi bi-exclamation-octagon" width="1em" height="1em"
+                         viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                        <path fill-rule="evenodd"
+                              d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                        <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                    </svg>
+                    - the module has not yet been approved by the administrator
+                    <br>
+                    <a href="/modules/MVVMFragment.zip">Download templates for generate screen</a>
+                </p>
+
+                <table border="0">
+                    <tr class="table__headRow">
+                        <th>#</th>
+                        <th>Name</th>
+                        <th></th>
+                        <% if(user.access_level == 1) { %>
+                            <th></th>
+                        <% } %>
+                    </tr>
+                    <tr>
+                        <% for (var i = 0; i < modules.length; i++) { %>
+                            <tbody class="module-string">
+                            <tr class="info">
+                                <td>
+                                    <% if (!modules[i].approved) { %>
+                                        <svg class="bi bi-exclamation-octagon" width="1em" height="1em"
+                                             viewBox="0 0 16 16" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
+                                            <path fill-rule="evenodd"
+                                                  d="M4.54.146A.5.5 0 0 1 4.893 0h6.214a.5.5 0 0 1 .353.146l4.394 4.394a.5.5 0 0 1 .146.353v6.214a.5.5 0 0 1-.146.353l-4.394 4.394a.5.5 0 0 1-.353.146H4.893a.5.5 0 0 1-.353-.146L.146 11.46A.5.5 0 0 1 0 11.107V4.893a.5.5 0 0 1 .146-.353L4.54.146zM5.1 1L1 5.1v5.8L5.1 15h5.8l4.1-4.1V5.1L10.9 1H5.1z"/>
+                                            <path d="M7.002 11a1 1 0 1 1 2 0 1 1 0 0 1-2 0zM7.1 4.995a.905.905 0 1 1 1.8 0l-.35 3.507a.552.552 0 0 1-1.1 0L7.1 4.995z"/>
+                                        </svg>
+                                    <% } %>
+                                    <%= i + 1 %>
+                                </td>
+                                <td>
+                                    <a href="/modules/detail/id<%= modules[i].id %>">
+                                        <%= modules[i].name %>
+                                    </a>
+                                </td>
+                                <td class="delete">
+                                    <button class="deleteBtn" value="/delete-module/id<%= modules[i].id %>"
+                                            onclick="toggleConfirm()">Delete
+                                    </button>
+                                </td>
+                                <% if(user.access_level == 1 && !modules[i].approved) { %>
+                                    <td class="approve">
+                                        <button class="approveBtn" onclick="toggleConfirm()"
+                                                value="/approve-module/id<%= modules[i].id %>">
+                                            Approve
+                                        </button>
+                                    </td>
+                                <% } %>
+                            </tr>
+                            </tbody>
+                        <% } %>
+                    </tr>
+                </table>
+            </div>
+
+            <div class="block">
+                <p>Add new module</p>
+                <form action="/addNewModule" method="POST" class="modal__form" name="addNewModuleForm">
+                    <label for="login">Name</label>
+                    <input type="text" name="name" value="" required>
+                    <label for="url">Url</label>
+                    <input type="text" name="url" required>
+                    <span class="error"></span>
+                    <button type="submit" name="button">Add</button>
+                </form>
+                <div class="instruction">
+                    <p>1. Follow architecture described below
+                        <br><br>
+                        1.1 Follow multi-module architecture
+                        <br><br>
+                        <img src="/system_images/module_architecture.jpg" style="max-width: 100%;">
+                        <br><br>
+                        1.2 Follow feature module architecture
+                        <br><br>
+                        <img src="/system_images/feature_module_arch.jpg" style="max-width: 100%;">
+                    </p>
+                    <p>2. Publish your module by Github and JitPack
+                        (<a href="https://medium.com/@ome450901/publish-an-android-library-by-jitpack-a0342684cbd0"
+                            target="_blank">full tutorial</a>)</p>
+                    <p>3. Fill module description in file README.md</p>
+                    <p>4. Add link on repository with module</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+<script>
+    var form = $('form[name="addNewModuleForm"]');
+
+    form.submit(function (e) {
+        e.preventDefault();
+
+        let newModule = {};
+
+        newModule.name = $("input[name='name']").val();
+        newModule.url = $("input[name='url']").val();
+
+        $.ajax({
+            type: "POST",
+            url: "/addNewModule",
+            data: JSON.stringify(newModule),
+            dataType: "json",
+            contentType: "application/json",
+            statusCode: {
+                200: function () {
+                    form.trigger('reset'); // очистить поля формы
+                    $('.error', form).html('');
+                    window.location.reload(); // после AJAX пагинации убрать, т.к надо отрисовывать еще при добавлении
+                }
+            }
+        });
+    });
+</script>
+
+<script>
+    $('.btn_search_module').on("click", function () {
+        let data = {};
+        data.search_module = $("[name=text_search_module]").val();
+
+        $.ajax({
+            url: '/searchModule',
+            type: "POST",
+            data: data,
+            cache: false,
+            success: function (response) {
+
+                $('.module-string').remove();
+                showModules(response['modules']);
+            }
+        });
+
+    });
+
+    $('.btn_search_module_reset').on("click", function () {
+        $("input[name='text_search_module']").val('');
+
+        $.ajax({
+            url: '/resetSearchModule',
+            type: "POST",
+            cache: false,
+            success: function (response) {
+
+                $('.module-string').remove();
+                showModules(response['modules']);
+            }
+        });
+
+    });
+
+    function showModules(data) {
+        data.forEach((element, index) => {
+
+            $("table").append(
+                `
+                            <tbody class="module-string">
+                        <tr class="info">
+                            <td>
+                             ${index + 1}
+                            </td>
+                            <td>
+                                <a href="/modules/detail/id${element._id}">
+                                    ${element.name}
+                                </a>
+                            </td>
+                            <td class="delete">
+                                <button class="deleteBtn"  value="/delete-module/id${element._id}" onclick="toggleConfirm()">Delete</button>
+                            </td>
+                        </tr>
+                        </tbody>
+                            `
+            );
+
+        });
+    }
+</script>

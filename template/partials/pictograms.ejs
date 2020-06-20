@@ -1,0 +1,117 @@
+<link rel="stylesheet" href="/css/pictograms.css">
+
+<label for="login">Login</label>
+<div class="pictograms">
+  <p class="pictograms__state" id="login"></p>
+  <div class="pictograms__inputs">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <input type="button" class="pictograms__input__delete" value="&#10006;">
+  </div>
+  <div class="pictograms__values">
+    <% for (var i = 0; i < JSON.parse(pictograms).length; i++) { %>
+    <div class="pictograms__values__field" onclick="onPictogramClick">
+      <img class="pictograms__values__field__image" src="<%-JSON.parse(pictograms)[i].image%>">
+      <p class="pictograms__values__field__value">
+        <%-JSON.parse(pictograms)[i].value%>
+      </p>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<label for="login">Password</label>
+<div class="pictograms">
+  <p class="pictograms__state" id="password"></p>
+  <div class="pictograms__inputs">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <img class="pictograms__input__field" src="/system_images/white.jpg">
+    <input type="button" class="pictograms__input__delete" value="&#10006;">
+  </div>
+  <div class="pictograms__values">
+    <% for (var i = 0; i < JSON.parse(pictograms).length; i++) { %>
+    <div class="pictograms__values__field" onclick="onPictogramClick">
+      <img class="pictograms__values__field__image" src="<%-JSON.parse(pictograms)[i].image%>">
+      <p class="pictograms__values__field__value">
+        <%-JSON.parse(pictograms)[i].value.replace(/\s+/g, "")%>
+      </p>
+    </div>
+    <% } %>
+  </div>
+</div>
+
+<script type="text/javascript" defer>
+  var pictograms = <%-pictograms%>;
+  var pictogramsInputs = document.querySelectorAll(".pictograms__inputs");
+  var pictogramsValues = document.querySelectorAll(".pictograms__values");
+
+  var pictogramsBtns = document.querySelectorAll(".pictograms__values__field");
+  var deleteBtns = document.querySelectorAll(".pictograms__input__delete");
+
+  // adding listeners part
+  for (let pictogram of pictogramsBtns)
+    pictogram.addEventListener("click", onPictogramClick);
+
+  for (let deleteBtn of deleteBtns)
+    deleteBtn.addEventListener("click", onPictogramClick);
+
+  function getImagesFromDB() {
+    for (let pictogram of pictogramsValues) {
+      var fields = pictogram.querySelectorAll(".pictograms__values__field__image");
+
+      for (let i = 0; i < fields.length; i++) {
+        fields[i].src = (pictograms[i].image).replace(/localhost/, "");
+      }
+
+      var values = pictogram.querySelectorAll(".pictograms__values__field__value");
+
+      for (let i = 0; i < values.length; i++) {
+        values[i].innerText = (pictograms[i].value);
+      }
+    }
+  }
+
+  function onPictogramClick(elem) {
+    var pictogram = elem.target.parentElement;
+    var container = pictogram.parentElement.parentElement;
+    var state = container.querySelector(".pictograms__state");
+    var inputs = container.querySelectorAll(".pictograms__input__field");
+
+    switch (elem.target.className) {
+      case "pictograms__input__delete":
+        handleDeleteBtnClick();
+        break;
+
+      case "pictograms__values__field__image":
+        handlePictogramClick();
+        break;
+    }
+    // /////////////////////////////////
+    function handlePictogramClick() {
+      var imagePath = pictogram.querySelector(".pictograms__values__field__image").src;
+      var value = pictogram.querySelector(".pictograms__values__field__value").innerText.replace(/\s+/g, "");
+
+      if (state.innerText.length > 0 && state.innerText.match(/\_\d+/g).length == 4) return;
+      state.innerText = state.innerText + value;
+
+      var matches = state.innerText.match(/\_\d+/g);
+      inputs[matches.length - 1].src = imagePath;
+    }
+
+    function handleDeleteBtnClick() {
+      var container = pictogram.parentElement;
+      var state = container.querySelector(".pictograms__state");
+      var inputs = container.querySelectorAll(".pictograms__input__field");
+
+      if (state.innerText.length == 0) return;
+
+      var images = pictogram.querySelectorAll(".pictograms__input__field");
+      images[state.innerText.match(/\_\d+/g).length - 1].src = "/system_images/white.jpg";
+      state.innerText = state.innerText.replace(/(\_\d+)$/, "");
+    }
+  }
+</script>

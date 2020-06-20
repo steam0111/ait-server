@@ -1,0 +1,73 @@
+  <link rel="stylesheet" href="/css/main.css" />
+  <link rel="stylesheet" href="/css/normalize.css">
+  <script src="/js/auth.js">
+  </script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+
+  <script defer>
+    function onRestorePassword() {
+      var data = {};
+      data.email = document.querySelector("#restoreEmail").value;
+
+      $.ajax({
+        type: 'POST',
+        url: '/forgot_password',
+        dataType: 'json',
+        data: data,
+        success: data =>  {
+          document.querySelector(".error").innerHTML = "";
+          document.querySelector(".success").innerHTML = data;
+        },
+        error: data =>  {
+          document.querySelector(".success").innerHTML = "";
+          document.querySelector(".error").innerHTML = data;
+        }
+      });
+    }
+  </script>
+
+  <div class="modal">
+    <div class="modal__pagination">
+      <button type="button" name="button" class="paginationBtn paginationBtn--active" id="signInBtn">Sign In</button>
+      <button type="button" name="button" class="paginationBtn" id="signUpBtn">Sign Up</button>
+    </div>
+    <form class="modal__form" id="signIn" action="/login" method="POST" name="loginForm">
+      <label for="login">E-mail</label>
+      <input type="email" name="username" value="" required>
+      <label for="password">Password</label>
+      <input type="password" name="password" value="" required>
+      <select name="user_type">
+        <option value="caregiver" selected>Caregiver</option>
+        <option value="developer">Developer</option>
+      </select>
+
+      <button type="submit" name="button">Sign In</button>
+      <p id="forgotLink">
+        Forgot your password?
+      </p>
+    </form>
+    <form class="modal__form none" id="restore" action="/forgot_password" method="POST" name="restorePasswordForm" ">
+      <label for="login">E-mail</label>
+      <input type="email" name="email" value=""  id="restoreEmail" required>
+
+      <span class="success" style="color: green"></span>
+
+      <span class="error" style="color: red"></span>
+
+      <button type="button" name="button" onclick="onRestorePassword()">Restore</button>
+
+
+    </form>
+    <form class="modal__form none" id="signUp" action="/signUp" method="POST" name="signupForm">
+      <label for="login">E-mail</label>
+      <input type="email" name="username" value="" required>
+      <label for="password">Password</label>
+      <input type="password" name="password" value="" required>
+      <select name="user_type">
+        <option value="caregiver" selected>Caregiver</option>
+        <option value="developer">Developer</option>
+      </select>
+
+      <button type="submit" name="button">Sign up</button>
+    </form>
+  </div>

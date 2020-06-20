@@ -1,0 +1,21 @@
+<link rel="stylesheet" href="/css/personalArea.css" />
+
+<% layout('layout/pattern') -%>
+
+<div class="page">
+  <%-partial('./partials/leftVerticalMenu')%>
+  <div class="right-column">
+    <div class="container">
+      <% if(user.access_level == 3) { %>
+      <%-partial('./partials/personalArea/coach')%> <% } else
+      if(user.access_level == 2) { %>
+      <%-partial('./partials/personalArea/admin')%> <% } else
+      if(user.access_level == 1) { %>
+      <%-partial('./partials/personalArea/superAdmin')%> <% } %> <%
+      if(user.developer === true) { %>
+      <%-partial('./partials/personalArea/developer')%> <% } %>
+    </div>
+  </div>
+</div>
+
+<script src="/js/confirmDelete.js"></script>

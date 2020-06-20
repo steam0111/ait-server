@@ -1,0 +1,17 @@
+<% layout('../layout/pattern') -%>
+<link rel='stylesheet' href='/css/personalArea.css' />
+<link rel='stylesheet' href='/css/githubReadme.css' />
+
+<div class="page">
+    <%-partial('../partials/leftVerticalMenu')%>
+    <div class="right-column">
+        <div class="container">
+            <h1>Information</h1>
+            <div id="readme">
+                <h4><%=module.name%></h4>
+                <%-readmeData%>
+            </div>
+        </div>
+
+    </div>
+</div>

@@ -1,0 +1,56 @@
+.pictograms {
+  width: 100%;
+  max-width: 400px;
+  height: auto;
+  margin-bottom: 20px;
+}
+
+.pictograms__inputs {
+  width: 100%;
+  margin-bottom: 20px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.pictograms__input__field,  .pictograms__input__delete {
+  width: calc(100%/5 - 5px)!important;
+  min-width: calc(100%/5 - 5px)!important;
+  height: 70px;
+  min-height: 70px;
+  margin-bottom: 0!important;
+}
+
+.pictograms__input__delete {
+  font-size: 25pt;
+  color: rgb(228, 80, 60);
+}
+
+.pictograms__values {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  height: 190px;
+  overflow-y: scroll;
+}
+
+.pictograms__values__field {
+  width: calc(100%/4 - 5px);
+  height: 95px;
+  margin-bottom: 5px;
+  background-color: grey;
+}
+
+.pictograms__values__field__image {
+  width: 100%;
+  height: 100%;
+}
+
+.pictograms__values__field__value {
+  display: none;
+}
+
+.pictograms__state {
+  display: none;
+}

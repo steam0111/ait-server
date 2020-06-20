@@ -1,0 +1,35 @@
+<div class="modal__form block">
+    <p>Settings</p>
+
+    <label for="progressBar">Progress bar
+        <input type="checkbox" name="progressBar" id="progressBarChanger">
+    </label>
+
+    <label>Next/Back buttons
+        <input type="range" min="1" max="<%=countFiles.nextBack%>" name="next-back-btn" id="nextBackBtnsChanger">
+    </label>
+
+    <label>Again button
+        <input type="range" min="1" max="<%=countFiles.againBtn%>" name="again-btn" id="againBtnChanger">
+    </label>
+
+    <label>Basket
+        <input type="range" min="1" max="<%=countFiles.basket%>" name="basket" id="basketChanger">
+    </label>
+
+    <label>Wallet
+        <input type="range" min="1" max="<%=countFiles.wallet%>" name="wallet" id="walletChanger">
+    </label>
+
+    <label for="fсurrency">Currency</label>
+    <select id="fсurrency" name="сurrency">
+      <option value="euro">Euro</option>
+      <option value="russian_ruble">Russian ruble</option>
+      <option value="us_dollar">U.S. dollar</option>
+    </select>
+    <br>
+
+    <button type="submit" id="submitBtn">
+      Save settings
+    </button>
+</div>
